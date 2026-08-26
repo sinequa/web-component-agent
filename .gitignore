@@ -84,3 +84,4 @@ dist/
 /src/assets/i18n/no-result
 /src/assets/i18n/agt-enterprise-search
 /src/assets/i18n/navbar-tabs
+*.stackdump
