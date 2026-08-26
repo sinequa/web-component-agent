@@ -1,0 +1,21 @@
+{
+  "page": {
+    "title": "Composants web Sinequa Agent"
+  },
+  "sidebar": {
+    "newChat": "Nouveau chat",
+    "searchChats": "Rechercher des chats",
+    "recentChats": "Chats récents",
+    "language": "Langue",
+    "overrideUser": "Usurper l'identité",
+    "revertOverride": "Annuler l'usurpation"
+  },
+  "toasts": {
+    "connectionLost": "Connexion perdue. Nouvelle tentative…",
+    "reconnecting": "Reconnexion (tentative {count})…",
+    "reconnected": "Reconnecté.",
+    "error": "Une erreur est survenue.",
+    "savedChatFailed": "L'action sur le chat enregistré a échoué.",
+    "startFailed": "Échec du démarrage. Voir la console pour plus de détails."
+  }
+}

@@ -1,0 +1,573 @@
+/*
+ * Byte-copy of sba/agent/projects/demo/src/theme.css. Keep in sync manually with that file
+ * until the theme is exported by the @sinequa/agent package (design-system consolidation
+ * pending); then delete this copy and import it from the package instead.
+ */
+@import "./styles/galactik-tokens";
+@import "./styles/galactik-tokens-dark";
+@import "./styles/badge-tokens";
+
+/* Force dark mode to be used with .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+:root {
+  --font-sans: 'Hanken Grotesk';
+
+  color-scheme: light;
+  --background: light-dark(var(--color-gray-50), var(--color-sage-975));
+  --foreground: light-dark(var(--color-sage-975), var(--color-sage-50));
+  --success: var(--color-green-500);
+
+  --ai-from: #193cb8;
+  --ai-via: #f6339a;
+  --ai-to: #ff8904;
+
+  --color-datepicker-today: var(--color-gray-300);
+
+  --backdrop: oklch(from var(--foreground) l c h / 50%);
+  --backdrop-filter: blur(2px);
+
+  --assistant: #9ca3af;
+  --assistant-primary-bg: #f3f4f6;
+  --assistant-secondary-bg: #f8fafc;
+
+  --gradient-name: linear-gradient(93deg, #1B97BF 0%, #8A3BFF 100%);
+
+  --tool-card: light-dark(var(--color-gray-100),var(--color-sage-975));
+  --tool-card-hovered: light-dark(rgba(229, 231, 235, 0.3), rgba(45, 57, 58, 0.3));
+  --tool-card-border: light-dark(var(--color-gray-200),var(--color-sage-800));
+  --tool-card-widget: light-dark(white,var(--color-sage-950));
+
+  --menu-bg: light-dark(white,var(--color-sage-975));
+  --menu-border: light-dark(var(--color-gray-200),var(--color-sage-800));
+
+  /* z-index scale */
+  --z-popup: 50;
+  --z-tooltip: 100;
+
+  /* Application variables, do not rely on those as they may disappear or change */
+  --chat-input-height: 150px;
+
+  --sidebar: light-dark(var(--color-sage-950), var(--color-sage-900));
+  --sidebar-foreground: light-dark(var(--color-sage-200), var(--color-sage-100));
+  --sidebar-primary: light-dark(oklch(0.648 0.2 131.684), oklch(0.768 0.233 130.85));
+  --sidebar-primary-foreground: light-dark(oklch(0.986 0.031 120.757), oklch(0.986 0.031 120.757));
+  --sidebar-accent: light-dark(oklch(from var(--color-sage-800) l c h / 30%), oklch(from var(--color-sage-975) l c h / 30%));
+  --sidebar-accent-foreground: light-dark(var(--color-sage-50), oklch(0.985 0 0));
+  --sidebar-active: light-dark(var(--color-sage-700), var(--color-sage-975));
+  --sidebar-active-foreground: light-dark(var(--color-white), oklch(0.986 0.031 120.757));
+  --sidebar-border: light-dark(var(--color-sage-900), oklch(1 0 0 / 10%));
+  --sidebar-ring: light-dark(var(--color-pink-400), var(--color-pink-700));
+
+  --primary: light-dark(var(--color-sage-800), var(--color-sage-200));
+  --primary-foreground: light-dark(var(--color-sage-50), var(--color-sage-950));
+  --primary-foreground-base: light-dark(var(--color-sage-800), var(--color-sage-100));
+  --primary-foreground-muted: light-dark(var(--color-sage-600), var(--color-sage-400));
+  --primary-hovered: light-dark(var(--color-sage-950), var(--color-sage-200));
+  --primary-foreground-hovered: light-dark(var(--color-sage-900), var(--color-sage-50));
+  --primary-pressed: light-dark(var(--color-sage-300), var(--color-sage-400));
+  --primary-pressed-foreground: light-dark(var(--color-black), var(--color-black));
+  --primary-foreground-pressed: light-dark(var(--color-black), var(--color-sage-50)); /* alias for button component */
+  --primary-active: light-dark(var(--color-primary), var(--color-sage-600));
+  --primary-active-foreground: light-dark(var(--color-white), var(--color-sage-50));
+  --primary-disabled: light-dark(var(--color-disabled), var(--color-sage-800));
+  --primary-disabled-foreground: light-dark(var(--color-muted), var(--color-sage-500));
+  --primary-light: light-dark(var(--color-sage-200), var(--color-sage-700));
+  --primary-lighter: light-dark(var(--color-sage-100), var(--color-sage-900));
+  --primary-lightest: light-dark(var(--color-sage-50), var(--color-sage-950));
+  --primary-foreground-dark: light-dark(var(--color-sage-975), var(--color-sage-50));
+
+  --stroke-primary-base:    light-dark(var(--color-sage-800), var(--color-sage-200));
+  --stroke-primary-hovered: light-dark(var(--color-sage-900), var(--color-sage-100));
+  --stroke-primary-pressed: light-dark(var(--color-sage-950), var(--color-sage-50));
+  --stroke-primary-muted:   light-dark(var(--color-sage-700), var(--color-sage-300));
+  --stroke-primary-light: light-dark(var(--color-sage-300), var(--color-sage-800));
+  --stroke-primary-lighter: light-dark(var(--color-sage-200), var(--color-sage-900));
+  --stroke-neutral-disabled: light-dark(var(--grey-200), var(--grey-800));
+
+  --secondary: light-dark(var(--color-sage-100), var(--color-almond-600));
+  --secondary-foreground: light-dark(var(--color-sage-900), var(--color-almond-100));
+  --secondary-base-alt: light-dark(var(--color-almond-800), var(--color-almond-200));
+  --secondary-hovered: light-dark(var(--color-sage-100), var(--color-sage-900));
+  --secondary-hovered-foreground: light-dark(var(--color-sage-900), var(--color-sage-50));
+  --secondary-foreground-hovered: light-dark(var(--color-sage-900), var(--color-almond-100)); /* alias for button component */
+  --secondary-pressed: light-dark(var(--color-sage-200), var(--color-sage-800));
+  --secondary-pressed-foreground: light-dark(var(--color-sage-950), var(--color-sage-300));
+  --secondary-foreground-pressed: light-dark(var(--color-almond-950), var(--color-almond-50)); /* alias for button component */
+  --secondary-active: light-dark(#fff, var(--color-almond-500));
+  --secondary-active-foreground: light-dark(var(--color-primary), var(--color-sage-50));
+  --secondary-disabled: light-dark(var(--color-disabled), var(--color-sage-800));
+  --secondary-disabled-foreground: light-dark(var(--color-muted), var(--color-sage-500));
+  --secondary-foreground-base-alt: light-dark(var(--color-almond-600), var(--color-almond-300));
+  --secondary-light: light-dark(var(--color-almond-200), var(--color-almond-800));
+  --secondary-lighter: light-dark(var(--color-almond-100), var(--color-almond-900));
+  --secondary-lightest: light-dark(var(--color-almond-50), var(--color-almond-950));
+
+  --focus: var(--color-pink-700);
+
+  --disabled: light-dark(var(--color-gray-200), oklch(1 0 0 / 15%));
+  --muted: light-dark(var(--color-gray-600), var(--color-sage-950));
+  --muted-foreground: light-dark(oklch(0.552 0.016 285.938), oklch(0.705 0.015 286.067));
+
+  --neutral-foreground-muted: #626C84;
+  --neutral-foreground-white: light-dark(#FFFFFF, #182021);
+  --neutral-foreground-black: light-dark(#182021, #EFF2F6);
+  --neutral-foreground-base: light-dark(#36383E, #EFF2F6);
+  --neutral-foreground-light: light-dark(#EFF2F6, #36383E);
+
+    --neutral-base: light-dark(#F9FAFB, #36383E);
+    --neutral-disabled: light-dark(#EFF2F6, #36383E);
+    --neutral-white:light-dark(#FFFFFF, #FFFFFF);
+    --neutral-base-alt:light-dark(#36383E, #EFF2F6);
+
+  --accent: light-dark(var(--color-pink-800), var(--color-pink-600));
+  --accent-alt: light-dark(var(--color-pink-200), var(--color-pink-700));
+  --accent-hovered: light-dark(var(--color-pink-100), var(--color-pink-500));
+  --accent-pressed: light-dark(var(--color-pink-900), var(--color-pink-800));
+  --accent-foreground: light-dark(var(--color-pink-950), var(--color-pink-50));
+  --accent-foreground-pressed: light-dark(var(--color-pink-50), var(--color-pink-50));
+  --accent-foreground-light: light-dark(var(--color-pink-200), var(--color-pink-300));
+  --accent-foreground-mute: light-dark(var(--color-pink-800), var(--color-pink-50));
+
+  --destructive: light-dark(var(--color-red-600), var(--color-red-500));
+  --destructive-hovered: light-dark(var(--color-red-700), var(--color-red-400));
+  --destructive-pressed: light-dark(var(--color-red-300), var(--color-red-700));
+  --destructive-alt: light-dark(var(--color-red-200), var(--color-red-800));
+  --destructive-lighter: light-dark(var(--color-red-100), var(--color-red-900));
+  --destructive-lightest: light-dark(var(--color-red-50), var(--color-red-950));
+  --destructive-foreground: light-dark(var(--color-red-800), var(--color-red-100));
+  --destructive-foreground-muted: light-dark(var(--color-red-600), var(--color-red-300));
+  --destructive-foreground-light: light-dark(var(--color-red-200), var(--color-red-800));
+
+  --stroke-destructive-base:  light-dark(var(--color-red-700), var(--color-red-400));
+  --stroke-destructive-muted: light-dark(var(--color-red-600), var(--color-red-300));
+
+}
+
+.dark {
+  color-scheme: dark;
+
+  --muted-foreground: var(--color-neutral-300);
+  --gradient-name: linear-gradient(93deg, #9BD1F5 0%, #D997F1 100%);
+
+
+  --backdrop: oklch(from var(--color-gray-500) 0.2 c h / 50%);
+
+  --assistant-primary-bg: color-mix(in srgb, var(--primary), var(--background) 80%);
+  --assistant-secondary-bg: color-mix(in srgb, var(--assistant), var(--background) 90%);
+
+  & ul {
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --chaps-e: url('assets/chaps-e/robot.svg');
+  --logo-small: url('assets/logo/small.svg');
+  --logo-large: url('assets/logo/large.svg');
+  --logo-alt-text: 'Sinequa logo';
+
+  /* Application variables, do not rely on those as they may disappear or change */
+  --color-input:        light-dark(rgba(255, 255, 255, 0.7), rgba(55, 70, 72, 0.6));
+  --color-input-border: light-dark(var(--color-sage-200), var(--color-sage-700));
+
+  --color-border: var(--color-gray-200);
+
+  --color-tool-card:          var(--tool-card);
+  --color-tool-card-hovered:  var(--tool-card-hovered);
+  --color-tool-card-border:   var(--tool-card-border);
+  --color-tool-card-widget:   var(--tool-card-widget);
+
+  --color-menu-bg:      var(--menu-bg);
+  --color-menu-border: var(--menu-border);
+
+  /*text primary*/
+  --color-primary-foreground-dark: var(--primary-foreground-dark);
+
+  --color-muted:            var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-disabled:         var(--disabled);
+
+  --color-focus: var(--focus);
+
+  --color-primary:            var(--primary);
+  --color-primary-hovered:    var(--primary-hovered);
+  --color-primary-pressed:    var(--primary-pressed);
+  --color-primary-active:     var(--primary-active);
+--color-primary-disabled:     var(--primary-disabled);
+  --color-primary-light:      var(--primary-light);
+  --color-primary-lighter:    var(--primary-lighter);
+  --color-primary-lightest:   var(--primary-lightest);
+
+  --color-primary-foreground:         var(--primary-foreground);
+  --color-primary-foreground-base:    var(--primary-foreground-base);
+  --color-primary-foreground-muted:   var(--primary-foreground-muted);
+  --color-primary-foreground-hovered: var(--primary-foreground-hovered);
+  --color-primary-foreground-pressed: var(--primary-foreground-pressed);
+
+
+  --color-primary-pressed-foreground:   var(--primary-pressed-foreground);
+  --color-primary-hovered-foreground:   var(--primary-foreground-hovered);
+  --color-primary-active-foreground:    var(--primary-active-foreground);
+  --color-primary-disabled-foreground:  var(--primary-disabled-foreground);
+
+
+
+  --color-stroke-primary-base:    var(--stroke-primary-base);
+  --color-stroke-primary-hovered: var(--stroke-primary-hovered);
+  --color-stroke-primary-pressed: var(--stroke-primary-pressed);
+  --color-stroke-primary-muted:   var(--stroke-primary-muted);
+  --color-stroke-primary-light:   var(--stroke-primary-light);
+  --color-stroke-primary-lighter: var(--stroke-primary-lighter);
+  --color-stroke-neutral-disabled: var(--stroke-neutral-disabled);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground:           var(--secondary-foreground);
+  --color-secondary-base-alt:             var(--secondary-base-alt);
+  --color-secondary-foreground-base-alt:  var(--secondary-foreground-base-alt);
+  --color-secondary-hovered:              var(--secondary-hovered);
+  --color-secondary-hovered-foreground:   var(--secondary-hovered-foreground);
+  --color-secondary-foreground-hovered:   var(--secondary-foreground-hovered);
+  --color-secondary-pressed:              var(--secondary-pressed);
+  --color-secondary-pressed-foreground:   var(--secondary-pressed-foreground);
+  --color-secondary-foreground-pressed:   var(--secondary-foreground-pressed);
+  --color-secondary-active:               var(--secondary-active);
+  --color-secondary-active-foreground:    var(--secondary-active-foreground);
+  --color-secondary-disabled:             var(--secondary-disabled);
+  --color-secondary-disabled-foreground:  var(--secondary-disabled-foreground);
+  --color-secondary-light:                var(--secondary-light);
+  --color-secondary-lighter:              var(--secondary-lighter);
+  --color-secondary-lightest:             var(--secondary-lightest);
+
+  --color-accent:         var(--accent);
+  --color-accent-alt:     var(--accent-alt);
+  --color-accent-hovered: var(--accent-hovered);
+  --color-accent-pressed: var(--accent-pressed);
+
+  --color-accent-foreground:          var(--accent-foreground);
+  --color-accent-foreground-pressed:  var(--accent-foreground-pressed);
+  --color-accent-foreground-light:    var(--accent-foreground-light);
+  --color-accent-foreground-mute:     var(--accent-foreground-mute);
+
+  --color-destructive:          var(--destructive);
+  --color-destructive-alt:      var(--destructive-alt);
+  --color-destructive-hovered:  var(--destructive-hovered);
+  --color-destructive-pressed:  var(--destructive-pressed);
+  --color-destructive-lighter:  var(--destructive-lighter);
+  --color-destructive-lightest: var(--destructive-lightest);
+
+  --color-destructive-foreground:       var(--destructive-foreground);
+  --color-destructive-foreground-muted: var(--destructive-foreground-muted);
+  --color-destructive-foreground-light: var(--destructive-foreground-light);
+
+  --color-stroke-destructive-base:  var(--stroke-destructive-base);
+  --color-stroke-destructive-muted: var(--stroke-destructive-muted);
+
+  --color-neutral-foreground-muted: var(--neutral-foreground-muted);
+  --color-neutral-foreground-white: var(--neutral-foreground-white);
+  --color-neutral-foreground-black: var(--neutral-foreground-black);
+  --color-neutral-foreground-base:  var(--neutral-foreground-base);
+  --color-neutral-foreground-light: var(--neutral-foreground-light);
+
+  --color-neutral-base:     var(--neutral-base);
+  --color-neutral-disabled: var(--neutral-disabled);
+  --color-neutral-white:    var(--neutral-white);
+  --color-neutral-base-alt: var(--neutral-base-alt);
+
+  --color-sidebar:                    var(--sidebar);
+  --color-sidebar-foreground:         var(--sidebar-foreground);
+  --color-sidebar-primary:            var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent:             var(--sidebar-accent);
+  --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
+  --color-sidebar-active:             var(--sidebar-active);
+  --color-sidebar-active-foreground:  var(--sidebar-active-foreground);
+  --color-sidebar-border:             var(--sidebar-border);
+  --color-sidebar-ring:               var(--sidebar-ring);
+
+  --color-sage-50: #f5f8f7;
+  --color-sage-100: #e8f0ee;
+  --color-sage-200: #d1e1dd;
+  --color-sage-300: #a9c1b8;
+  --color-sage-400: #7a9b95;
+  --color-sage-500: #607c7f;
+  --color-sage-600: #5d7374;
+  --color-sage-700: #4f6162;
+  --color-sage-800: #445556; /* 👑 */
+  --color-sage-900: #374648; /* headers */
+  --color-sage-950: #2d393a; /* sidebar */
+  --color-sage-975: #222d30;
+
+  --color-almond-50: #f1f8f4;
+  --color-almond-100: #dcefe3; /* 👑 */
+  --color-almond-200: #bbdfca;
+  --color-almond-300: #8ec7a9;
+  --color-almond-400: #5fa884;
+  --color-almond-500: #3d8c69;
+  --color-almond-600: #2c6f52;
+  --color-almond-700: #235944;
+  --color-almond-800: #1e4737;
+  --color-almond-900: #193b2e;
+  --color-almond-950: #0d211a;
+
+  --color-pink-50: #fcf7fc;
+  --color-pink-100: #faecfb;
+  --color-pink-200: #efc9f3; /* 👑 */
+  --color-pink-300: #dbbade;
+  --color-pink-400: #c9aacb;
+  --color-pink-500: #b896bb;
+  --color-pink-600: #a582ab;
+  --color-pink-700: #926e9b;
+  --color-pink-800: #7f5a8b;
+  --color-pink-900: #6c467b;
+  --color-pink-950: #4a325b;
+
+  --color-green-50: #f6faf5;
+  --color-green-100: #e5eee3;
+  --color-green-200: #c4d6c0;
+  --color-green-300: #91b38b;
+  --color-green-400: #709b67;
+  --color-green-500: #4e8344;
+  --color-green-600: #3e6936; /* 👑 */
+  --color-green-700: #2f4f29;
+  --color-green-800: #1f341b;
+  --color-green-900: #172714;
+  --color-green-950: #101a0e;
+
+  --color-orange-50: #fff6f1;
+  --color-orange-100: #ffeee2;
+  --color-orange-200: #ffddc6;
+  --color-orange-300: #ffcba9;
+  --color-orange-400: #ffba8d;
+  --color-orange-500: #df884f;
+  --color-orange-600: #bd6f3c; /* 👑 */
+  --color-orange-700: #98552a;
+  --color-orange-800: #85461e;
+  --color-orange-900: #753a13;
+  --color-orange-950: #592a0b;
+
+  --color-red-50: #ffefef;
+  --color-red-100: #ffdedf;
+  --color-red-200: #ffbebf;
+  --color-red-300: #ff9d9f;
+  --color-red-400: #ff7d7f;
+  --color-red-500: #d64a4c;
+  --color-red-600: #ad3739; /* 👑 */
+  --color-red-700: #852527;
+  --color-red-800: #701c1d;
+  --color-red-900: #5c1214;
+  --color-red-950: #47090a;
+
+  --color-blue-50: #f1f6fa;
+  --color-blue-100: #e2edf4;
+  --color-blue-200: #c5dbea;
+  --color-blue-300: #a9cadf;
+  --color-blue-400: #8cb8d5;
+  --color-blue-500: #5a87a4;
+  --color-blue-600: #45677e; /* 👑 */
+  --color-blue-700: #2f4859;
+  --color-blue-800: #253846;
+  --color-blue-900: #1a2833;
+  --color-blue-950: #101920;
+
+  --color-gray-50: #fdfefe;
+  --color-gray-100: #f9fafb;
+  --color-gray-200: #eff2f6;
+  --color-gray-300: #b9c4d5;
+  --color-gray-400: #97a6be;
+  --color-gray-500: #7685a2;
+  --color-gray-600: #626c84; /* 👑 */
+  --color-gray-700: #4d5260;
+  --color-gray-800: #36383e;
+  --color-gray-900: #272b30;
+  --color-gray-950: #171c1f;
+
+  --color-yellow-50: #fef8ed;
+  --color-yellow-100: #dcefe3;
+  --color-yellow-200: #fbe5b9;
+  --color-yellow-300: #f8d795;
+  --color-yellow-400: #f6ca72;
+  --color-yellow-500: #c89b40;
+  --color-yellow-600: #9d7930; /* 👑 */
+  --color-yellow-700: #715621;
+  --color-yellow-800: #5b4519;
+  --color-yellow-900: #463411;
+  --color-yellow-950: #30230a;
+
+  --color-cherry-50: #f8f0f1;
+  --color-cherry-100: #f1e0e4;
+  --color-cherry-200: #e2c1c8;
+  --color-cherry-300: #d4a3ad;
+  --color-cherry-400: #c58491;
+  --color-cherry-500: #bb6779;
+  --color-cherry-600: #6e3d47; /* 👑 */
+  --color-cherry-700: #49282f;
+  --color-cherry-800: #371e23;
+  --color-cherry-900: #251418;
+  --color-cherry-950: #120a0c;
+
+  --color-indigo-50: #f2f4fc;
+  --color-indigo-100: #e5e9f9;
+  --color-indigo-200: #cbd4f2;
+  --color-indigo-300: #b2beec;
+  --color-indigo-400: #98a9e5;
+  --color-indigo-500: #6779bb;
+  --color-indigo-600: #505f97; /* 👑 */
+  --color-indigo-700: #394673;
+  --color-indigo-800: #2e3961;
+  --color-indigo-900: #222c4f;
+  --color-indigo-950: #171f3d;
+
+  --color-cyan-50: #e6eff0;
+  --color-cyan-100: #d4e3e4;
+  --color-cyan-200: #b1cccd;
+  --color-cyan-300: #8db4b5;
+  --color-cyan-400: #6a9d9e;
+  --color-cyan-500: #468586;
+  --color-cyan-600: #2a5050; /* 👑 */
+  --color-cyan-700: #1c3536;
+  --color-cyan-800: #152828;
+  --color-cyan-900: #0e1b1b;
+  --color-cyan-950: #070d0d;
+}
+
+/*sidebar customizations*/
+[data-slot="sidebar-inner"] {
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+[data-sidebar="menu-button"] {
+  padding-block: 1.125rem;
+  padding-inline: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.logo-collapse-container sidebar-trigger {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2ms;
+}
+
+.logo-collapse-container sidebar-trigger button {
+  width: 100%;
+  height: 100%;
+}
+
+[data-collapsible="icon"] [data-slot="sidebar-inner"]:hover .logo-collapse-container sidebar-trigger {
+  opacity: 1;
+}
+
+[data-collapsible="icon"] [data-slot="sidebar-inner"]:hover .logo-collapse-container .logo-small {
+  opacity: 0;
+}
+
+[data-sidebar="trigger"] button:hover {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.heading-4 {
+  @apply text-primary-foreground-muted text-xs font-semibold tracking-wider uppercase;
+}
+
+::-webkit-scrollbar {
+  width: var(--sb-width, 4px);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-gray-200;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  @apply bg-gray-300;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+@layer components {
+  .tooltip {
+    position: fixed;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: var(--z-tooltip);
+    animation: tooltip-in 150ms ease-out;
+  }
+
+  @keyframes tooltip-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    border: 5px solid transparent;
+  }
+
+  /* tooltip is above */
+  .tooltip[data-placement^='top']::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--primary);
+  }
+
+  /* tooltip is below */
+  .tooltip[data-placement^='bottom']::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--primary);
+  }
+
+  /* tooltip is on left */
+  .tooltip[data-placement^='left']::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--primary);
+  }
+
+  /* tooltip is on right */
+  .tooltip[data-placement^='right']::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--primary);
+  }
+}
+
+#gradient-name {
+  background: var(--gradient-name);
+  background-size: 300% 100%;
+  background-position: 0% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: animatedTextGradient 5s ease-in-out infinite alternate;
+  will-change: background-position;
+}
+
+@keyframes animatedTextGradient {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}

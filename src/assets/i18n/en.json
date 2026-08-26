@@ -1,0 +1,21 @@
+{
+  "page": {
+    "title": "Sinequa Agent web components"
+  },
+  "sidebar": {
+    "newChat": "New chat",
+    "searchChats": "Search chats",
+    "recentChats": "Recent chats",
+    "language": "Language",
+    "overrideUser": "Override user",
+    "revertOverride": "Revert override user"
+  },
+  "toasts": {
+    "connectionLost": "Connection lost. Retrying…",
+    "reconnecting": "Reconnecting (attempt {count})…",
+    "reconnected": "Reconnected.",
+    "error": "An error occurred.",
+    "savedChatFailed": "Saved-chat action failed.",
+    "startFailed": "Failed to start. See console for details."
+  }
+}

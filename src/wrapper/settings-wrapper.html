@@ -1,0 +1,50 @@
+<Menu>
+  <!-- Trigger sits on the dark sidebar, so it uses the sidebar-* tokens, not the menu ones. -->
+  <button
+    class="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full cursor-pointer items-center gap-2 rounded-xl p-2 text-left">
+    <Avatar class="bg-accent-alt text-accent-foreground font-semibold">
+      <AvatarFallback>
+        @if (initials()) {
+          {{ initials() }}
+        } @else {
+          <user-icon />
+        }
+      </AvatarFallback>
+    </Avatar>
+    <div class="grid flex-1 text-sm leading-tight">
+      <span class="truncate font-medium">{{ fullname() }}</span>
+      <span class="truncate text-xs">{{ email() }}</span>
+    </div>
+  </button>
+
+  <MenuContent position="top-end" class="border-menu-border bg-menu-bg rounded-3xl border p-3 shadow-lg">
+    @if (allowUserOverride()) {
+      <ul class="flex w-full flex-col gap-1">
+        <li>
+          <button
+            (click)="openOverride()"
+            class="hover:bg-secondary-lightest hover:text-primary-foreground-dark active:bg-secondary-lighter active:text-primary-foreground-dark text-primary-foreground-hovered flex w-full cursor-pointer items-center gap-2 rounded-xl p-2">
+            <user-secret-icon class="size-4 shrink-0" />
+            <label class="cursor-pointer truncate">{{ 'sidebar.overrideUser' | transloco }}</label>
+          </button>
+        </li>
+      </ul>
+      <hr class="border-menu-border" />
+    } @else if (isOverridingUser()) {
+      <ul class="flex w-full flex-col gap-1">
+        <li>
+          <button
+            (click)="revertOverride()"
+            class="hover:bg-secondary-lightest hover:text-primary-foreground-dark active:bg-secondary-lighter active:text-primary-foreground-dark text-primary-foreground-hovered flex w-full cursor-pointer items-center gap-2 rounded-xl p-2">
+            <user-icon class="size-4 shrink-0" />
+            <label class="cursor-pointer truncate">{{ 'sidebar.revertOverride' | transloco }}</label>
+          </button>
+        </li>
+      </ul>
+      <hr class="border-menu-border" />
+    }
+    <Settings class="mt-auto" [debug]="debug()" />
+  </MenuContent>
+</Menu>
+
+<override-user-dialog />

@@ -1,0 +1,21 @@
+{
+  "page": {
+    "title": "Sinequa Agent Web-Komponenten"
+  },
+  "sidebar": {
+    "newChat": "Neuer Chat",
+    "searchChats": "Chats suchen",
+    "recentChats": "Letzte Chats",
+    "language": "Sprache",
+    "overrideUser": "Benutzer übernehmen",
+    "revertOverride": "Übernahme aufheben"
+  },
+  "toasts": {
+    "connectionLost": "Verbindung verloren. Neuer Versuch…",
+    "reconnecting": "Wiederverbindung (Versuch {count})…",
+    "reconnected": "Wieder verbunden.",
+    "error": "Ein Fehler ist aufgetreten.",
+    "savedChatFailed": "Aktion für gespeicherten Chat fehlgeschlagen.",
+    "startFailed": "Start fehlgeschlagen. Details in der Konsole."
+  }
+}

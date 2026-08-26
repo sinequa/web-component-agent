@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sinequa Agent web components</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      /*
+       * The sidebar reuses the @sinequa/agent theme tokens (defined in theme.css and shipped in
+       * styles.css). They are declared with light-dark(), and the library's theme service toggles
+       * the `.dark` class on <html>, so every color below follows the active light/dark theme for free.
+       */
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      #app {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        background: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-sans), system-ui, sans-serif;
+      }
+
+      /* ── Sidebar ─────────────────────────────────────────────────────────── */
+      #sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 288px;
+        flex: 0 0 288px;
+        padding: 0.75rem;
+        background: var(--sidebar);
+        color: var(--sidebar-foreground);
+        border-right: 1px solid var(--sidebar-border);
+        overflow: hidden;
+      }
+
+      #sidebar-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
+
+      .sb-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.625rem;
+        border: 1px solid transparent;
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.25rem;
+        cursor: pointer;
+        transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+      }
+      .sb-btn svg {
+        width: 1rem;
+        height: 1rem;
+        flex: none;
+      }
+      .sb-btn--primary {
+        background: var(--primary);
+        color: var(--primary-foreground);
+      }
+      .sb-btn--primary:hover {
+        background: var(--primary-hovered);
+      }
+      .sb-btn--ghost {
+        background: transparent;
+        color: var(--sidebar-foreground);
+        border-color: var(--sidebar-border);
+      }
+      .sb-btn--ghost:hover {
+        background: var(--sidebar-accent);
+        color: var(--sidebar-accent-foreground);
+      }
+
+      .sb-label {
+        padding: 0.75rem 0.25rem 0.25rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--sidebar-foreground);
+        opacity: 0.6;
+      }
+
+      #saved-chats-section {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 0.125rem;
+      }
+
+      #settings-section {
+        border-top: 1px solid var(--sidebar-border);
+        padding-top: 0.5rem;
+      }
+
+      /* ── Main area ───────────────────────────────────────────────────────── */
+      /* No sq-agent rule needed: the element's host classes (flex size-full) size it. */
+      #main {
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 100%;
+      }
+
+      /* ── Toast ───────────────────────────────────────────────────────────── */
+      #toast {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        max-width: 320px;
+        padding: 0.75rem 1rem;
+        border-radius: 0.625rem;
+        background: var(--primary);
+        color: var(--primary-foreground);
+        border: 1px solid var(--sidebar-border);
+        box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+        font-size: 0.875rem;
+        line-height: 1.4;
+        display: none;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar">
+        <div id="sidebar-actions">
+          <button id="new-chat" class="sb-btn sb-btn--primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            <span data-i18n="sidebar.newChat">New chat</span>
+          </button>
+          <button id="search-chats" class="sb-btn sb-btn--ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <span data-i18n="sidebar.searchChats">Search chats</span>
+          </button>
+        </div>
+        <div class="sb-label" data-i18n="sidebar.recentChats">Recent chats</div>
+        <div id="saved-chats-section"></div>
+        <div id="settings-section"></div>
+      </aside>
+      <main id="main"></main>
+    </div>
+
+    <div id="toast"></div>
+
+    <script type="module">
+      // ── Configuration ─────────────────────────────────────────────────────────────────
+      // These MUST match the backend app and the agent-instance configuration JSON on the
+      // Sinequa server. `instanceId` is a key in the app-customization "agents" JSON.
+      //
+      // NOTE: config + auth are handled INSIDE the elements bundle (passed to the bootstrap
+      // below), NOT via the standalone atomic.js. The bundle has its own atomic instance, so
+      // calling setGlobalConfig/login on atomic.js here would not affect the elements.
+      const APP_NAME = 'agent';
+      const INSTANCE_ID = 'chatSearchInstance';
+      const BACKEND_URL = '';
+      const STATIC_BEARER_TOKEN = '';
+     
+      // ── Small toast helper (replaces the demo's host directives) ────────────────────────
+      const toastEl = document.getElementById('toast');
+      let toastTimer;
+      function toast(message) {
+        toastEl.textContent = message;
+        toastEl.style.display = 'block';
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => (toastEl.style.display = 'none'), 4000);
+      }
+
+      // ── Host-page i18n (labels + toasts) ─────────────────────────────────────────────────
+      // The page reuses the SAME translation assets the elements bundle loads through
+      // Transloco (assets/i18n/{lang}.json). English is fetched once as the fallback
+      // dictionary; lookups try the active language first, then English, then the key path.
+      const SUPPORTED_LANGS = ['en', 'fr', 'de', 'ja'];
+      let labels = {};
+      let fallbackLabels = {};
+      let labelsSeq = 0;
+
+      function normalizeLang(raw) {
+        return (raw || 'en').split('-')[0].toLowerCase();
+      }
+
+      function t(path) {
+        const pick = dict => path.split('.').reduce((node, key) => (node ? node[key] : undefined), dict);
+        return pick(labels) ?? pick(fallbackLabels) ?? path;
+      }
+
+      async function fetchLabels(lang) {
+        const response = await fetch(`assets/i18n/${lang}.json`);
+        return response.ok ? response.json() : {};
+      }
+
+      async function loadAndApplyLabels(rawLang) {
+        const normalized = normalizeLang(rawLang);
+        const lang = SUPPORTED_LANGS.includes(normalized) ? normalized : 'en';
+        const seq = ++labelsSeq; // the LAST requested language wins, whatever the fetch order
+        if (!Object.keys(fallbackLabels).length) fallbackLabels = await fetchLabels('en');
+        const loaded = lang === 'en' ? fallbackLabels : await fetchLabels(lang);
+        if (seq !== labelsSeq) return;
+        labels = loaded;
+        document.title = t('page.title');
+        document.querySelectorAll('[data-i18n]').forEach(el => (el.textContent = t(el.dataset.i18n)));
+      }
+
+      // Apply once from the page language, then re-apply on every confirmed change: the
+      // elements bundle dispatches 'sinequa-language-changed' for language switches made
+      // inside the sq-settings dialog.
+      loadAndApplyLabels(document.documentElement.lang);
+      document.addEventListener('sinequa-language-changed', e => loadAndApplyLabels(e.detail?.lang));
+
+      // ── Wait until main.js has registered the bootstrap (handles both script orderings) ──
+      function whenElementsLoaded() {
+        return window.__bootstrapSinequaAgentElements
+          ? Promise.resolve()
+          : new Promise(resolve =>
+              document.addEventListener('sq-agent-elements-loaded', resolve, { once: true })
+            );
+      }
+
+      async function start() {
+        await whenElementsLoaded();
+
+        // The bundle sets global config, authenticates, and registers the elements.
+        await window.__bootstrapSinequaAgentElements({
+          app: APP_NAME,
+          token: STATIC_BEARER_TOKEN || undefined,
+          backendUrl: BACKEND_URL
+        });
+
+        // ── Main agent element ────────────────────────────────────────────────────────────
+        const agent = document.createElement('sq-agent');
+        agent.instanceId = INSTANCE_ID;
+        document.getElementById('main').appendChild(agent);
+
+        // ── Saved-chats list ────────────────────────────────────────────────────────────────
+        const savedChats = document.createElement('sq-saved-chats');
+        savedChats.instanceId = INSTANCE_ID;
+        document.getElementById('saved-chats-section').appendChild(savedChats);
+
+        // ── Searchable saved-chats dialog ─────────────────────────────────────────────────
+        const savedChatsDialog = document.createElement('sq-saved-chats-dialog');
+        savedChatsDialog.instanceId = INSTANCE_ID;
+        document.body.appendChild(savedChatsDialog);
+
+        // ── Settings panel ──────────────────────────────────────────────────────────────────
+        const settings = document.createElement('sq-settings');
+        settings.debug = true;
+        document.getElementById('settings-section').appendChild(settings);
+
+        // ── Host wiring (replaces the demo's Angular host directives) ───────────────────────
+        document.getElementById('new-chat').addEventListener('click', () => {
+          document.dispatchEvent(
+            new CustomEvent('agent-new-chat', { detail: { instanceId: INSTANCE_ID }, bubbles: true })
+          );
+        });
+
+        document.getElementById('search-chats').addEventListener('click', () => {
+          savedChatsDialog.open = true;
+        });
+
+        // Selecting a saved chat updates the agent's chatId and highlights the active row.
+        // No manual dialog reset needed: the dialog closes itself on selection and the
+        // element resets its own `open` property (listen to 'sq-dialog-closed' to react).
+        document.addEventListener('sq-chat-selected', event => {
+          const chat = event.detail;
+          agent.chatId = chat?.id;
+          savedChats.activeChatId = agent.chatId;
+        });
+
+        // Connection / error lifecycle → toasts.
+        document.addEventListener('agent-connection-lost', () => toast(t('toasts.connectionLost')));
+        document.addEventListener('agent-reconnecting', e =>
+          toast(t('toasts.reconnecting').replace('{count}', e.detail?.retryCount ?? '?'))
+        );
+        document.addEventListener('agent-reconnected', () => toast(t('toasts.reconnected')));
+        document.addEventListener('agent-error', e => toast(e.detail?.errorMessage ?? t('toasts.error')));
+        document.addEventListener('agent-saved-chat', e => {
+          if (e.detail?.id?.endsWith('_FAILED')) toast(e.detail?.errorMessage ?? t('toasts.savedChatFailed'));
+        });
+      }
+
+      start().catch(err => {
+        console.error('Failed to start agent web components:', err);
+        toast(t('toasts.startFailed'));
+      });
+    </script>
+
+  </body>
+</html>

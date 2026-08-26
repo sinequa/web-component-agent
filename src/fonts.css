@@ -1,0 +1,36 @@
+/*
+ * Byte-copy of sba/agent/projects/demo/src/fonts.css. Keep in sync manually with that file
+ * until the theme is exported by the @sinequa/agent package (design-system consolidation
+ * pending); then delete this copy and import it from the package instead.
+ */
+@font-face {
+  font-display: swap;
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/hanken-grotesk-v12-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./assets/fonts/hanken-grotesk-v12-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  src: url('./assets/fonts/hanken-grotesk-v12-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./assets/fonts/hanken-grotesk-v12-latin-700.woff2') format('woff2');
+}

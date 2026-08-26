@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+@import '../node_modules/@sinequa/agent/css/utilities.css';
+@plugin "@tailwindcss/typography";
+
+/* Tailwind must scan the compiled library sources so every utility class used by the
+   agent/ui/atomic-angular templates ends up in the emitted stylesheet. Without these
+   @source scans the classes would be purged and the elements would render unstyled. */
+@source "../node_modules/@sinequa/ui";
+@source "../node_modules/@sinequa/agent";
+@source "../node_modules/@sinequa/atomic-angular";
+
+@import './theme.utilities';
+@import './theme';
+@import './fonts.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+/* Used to mark messages as locked and fade them */
+@custom-variant data-locked (&[data-locked="true"]);
