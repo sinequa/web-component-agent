@@ -2,7 +2,7 @@
 
 Angular Elements build that publishes the `@sinequa/agent` library as browser
 **custom elements**, so the new agent UI can be embedded in non-Angular hosts (a CMS, a React
-app, a plain HTML page). It is the agent-library counterpart of the `sba/web-component` project,
+app, a plain HTML page). It is the agent-library counterpart of the `web-component-assistant` project,
 which does the same for the legacy `@sinequa/assistant` library.
 
 ## Elements
