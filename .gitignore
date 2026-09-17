@@ -7,7 +7,8 @@
 dist/*
 
 # Node
-node_modules/
+/node_modules
+vite/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -84,4 +85,3 @@ dist/
 /src/assets/i18n/no-result
 /src/assets/i18n/agt-enterprise-search
 /src/assets/i18n/navbar-tabs
-*.stackdump
