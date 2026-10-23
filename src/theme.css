@@ -41,7 +41,8 @@
   --menu-border: light-dark(var(--color-gray-200),var(--color-sage-800));
 
   /* z-index scale */
-  --z-popup: 50;
+  /* --z-popup lives in @sinequa/agent's utilities.css now — the library's own contract, not
+     this app's. Do not redefine it here. */
   --z-tooltip: 100;
 
   /* Application variables, do not rely on those as they may disappear or change */

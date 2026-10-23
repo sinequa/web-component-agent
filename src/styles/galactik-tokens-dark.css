@@ -43,7 +43,7 @@
   --font-error-base: var(--red-200);
   --font-error-light: var(--red-800);
   --font-error-muted: var(--red-400);
-  --font-success-base: var(--almond-200);
+  --font-success-base: var(--green-200);
   --font-success-light: var(--green-700);
   --font-success-muted: var(--almond-300);
   --font-cherry-base: var(--cherry-200);
@@ -136,6 +136,7 @@
   --shadow-3: 0px 20px 25px rgba(0, 0, 0, 0.45), 0px 10px 10px rgba(0, 0, 0, 0.35);
   --shadow-4: 0px 25px 50px rgba(0, 0, 0, 0.55);
   --shadow-inner: inset -1px -1px 6px rgba(0, 0, 0, 0.4), inset 1px 1px 6px rgba(255, 255, 255, 0.08);
+  --shadow-search-overlay: 0px 8px 40px rgba(0, 0, 0, 0.55), 0px 2px 8px rgba(0, 0, 0, 0.4);
 
   --effect-frosted-cloud-bg: rgba(244, 249, 249, 0.08);
   --effect-frosted-cloud-stroke: rgba(244, 249, 249, 0.18);

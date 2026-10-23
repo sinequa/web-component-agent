@@ -6,7 +6,7 @@ import { provideTransloco, TranslocoService } from '@jsverse/transloco';
 import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat';
 import { provideTanStackQuery, QueryClient } from '@tanstack/angular-query-experimental';
 
-import { AGENT_INSTANCE_ID, AGENT_LOGOUT_EVENT_NAME, LoggerService, provideDefaultAffordance, provideDefaultAgentJsonName, provideDefaultAgentToolbarActions, provideDefaultDebugPresentation, provideDefaultEmptyComponent, provideDefaultErrorComponent, provideDefaultImpersonationComponent, provideDefaultInputFilters, provideDefaultRendererPlugins, provideDefaultShikiHighlighterConfig, provideDefaultToolCardPlugins, provideDefaultUserToolbarActions, provideDefaultWelcomeComponent, RendererService, SavedChatsService, themeInitializerFn } from '@sinequa/agent';
+import { AGENT_INSTANCE_ID, AGENT_LOGOUT_EVENT_NAME, LoggerService, provideDefaultAffordance, provideDefaultAgentJsonName, provideDefaultAgentToolbarActions, provideDefaultDebugPresentation, provideDefaultEmptyComponent, provideDefaultErrorComponent, provideDefaultImpersonationComponent, provideDefaultInputFilters, provideDefaultRendererPlugins, provideDefaultShikiHighlighterConfig, provideDefaultToolCardPlugins, provideDefaultUserToolbarActions, provideDefaultWelcomeComponent, RendererService, SavedChatsService } from '@sinequa/agent';
 import { appInitializerFn, login, logout, setGlobalConfig } from '@sinequa/atomic';
 import { ApplicationService, authInterceptorFn, withBootstrapApp } from '@sinequa/atomic-angular';
 
@@ -83,7 +83,7 @@ async function bootstrapAgentElements(options: AgentElementsBootstrapOptions): P
       // configuration) into the stores. Runs after the host has logged in (see above).
       provideAppInitializer(appInitializerFn),
       provideAppInitializer(() => withBootstrapApp(inject(ApplicationService), { createRoutes: false })),
-      provideAppInitializer(themeInitializerFn),
+      // No themeInitializerFn: the host owns the theme and ThemeService follows its `dark` class.
 
       provideEnvironmentInitializer(() => inject(RendererService)),
 
